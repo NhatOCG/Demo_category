@@ -1,0 +1,83 @@
+﻿@page
+@model AddCategoryModel
+@{
+}
+<h3 class="mb-5 mt-5" id="txtTitle"> 施策カテゴリ追加 </h3>
+<div class="mb-5 mt-5" id="txtTitle1" style="display:none">
+	<h3>施策カテゴリ追加</h3><br>
+	<h3>以下の施策カテゴリを登録しますか？</h3>
+</div>
+<form method="post" asp-page="AddCategory" id="confirm">
+
+	<div class="mb-3 mt-5 row">
+		<label class="col-form-label col-sm-2">カテゴリー名</label>
+		<div class="col-sm-8">
+			<input class="form-control" id="txtName" asp-for="@Model.CategoryRequest.CategoryName" aria-required="true" />
+			<span asp-validation-for="@Model.CategoryRequest.CategoryName" class="text-danger"></span>
+			<label class="lblCatName" id="lblCatName"></label>
+		</div>
+	</div>
+
+	<div class="col-sm-12 d-flex justify-content-around mt-2">
+
+		<button class="btn btn-primary" type="button" id="btnback" style="display:none">戻る</button>
+		<button class="btn btn-primary" type="submit" id="btnSubmit" style="display:none" asp-page-handler="Add">保存</button>
+		<button class="btn btn-primary" type="button" id="btnback1" onclick="window.location.href ='/CategoryCRUD/list'">戻る</button>
+		<button class="btn btn-primary" type="button" id="btnConfirm">確認</button>
+	</div>
+
+</form>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		//khoi tao bien local
+		var catName;
+		$("#btnConfirm").click(function (event) {
+			var isValid = $("#confirm").valid()
+			if (!isValid) {
+				event.preventdefault();
+
+
+			}
+			else {
+				//gan gia tri cho bien category Name
+				catName = $("#txtName").val();
+				//an text box category Name
+				$("#txtName").css("display", "none");
+				//gan gia tri category Name da nhap cho label
+				$("#lblCatName").html(catName);
+				//hien thi button submit
+				$("#btnSubmit").css("display", "");
+				// hien thi button back
+				$("#btnback").css("display", "");
+				//an button confirm
+				$("#btnConfirm").css("display", "none");
+				//an button back1
+				$("#btnback1").css("display", "none");
+				//
+				$("#txtTitle1").css("display", "");
+				//
+				$("#txtTitle").css("display", "none");
+			}
+
+
+		});
+
+		$("#btnback").click(function (event) {
+			$("#btnSubmit").css("display", "none");
+			$("#btnback").css("display", "none");
+			$("#txtName").css("display", "");
+			$("#lblCatName").html("");
+			$("#btnback1").css("display", "");
+			$("#btnConfirm").css("display", "");
+			$("#txtTitle1").css("display", "none");
+			$("#txtTitle").css("display", "");
+
+		});
+	});
+</script>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
+<h1>h </h1>
